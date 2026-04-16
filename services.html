@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Services | Builtin Homes — Construction & Interior Design Chennai</title>
+  <meta name="description" content="Explore Builtin Homes' comprehensive services: individual house construction, commercial buildings, interior design, renovations, and turnkey projects in Chennai." />
+  <meta name="keywords" content="house construction Chennai, interior design Chennai, renovation services Kovilambakkam, turnkey construction Tamil Nadu" />
+  <meta property="og:title" content="Our Services | Builtin Homes" />
+  <meta property="og:description" content="Residential, commercial, interior design, renovation, and turnkey construction services in Chennai." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="services.html" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Services Page Styles */
+    .service-section {
+      padding: var(--space-7) 0;
+      position: relative;
+    }
+    .service-section:nth-child(even) { background: var(--bg-section); }
+    .service-section:nth-child(odd)  { background: var(--bg-light); }
+
+    .service-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6);
+      align-items: center;
+    }
+    .service-layout.reverse { direction: rtl; }
+    .service-layout.reverse > * { direction: ltr; }
+
+    .service-img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+    }
+    .service-img-placeholder {
+      width: 100%;
+      height: 400px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .service-img-placeholder .big-icon { font-size: 5rem; }
+    .service-img-placeholder p { color: rgba(255,255,255,0.75); font-size: var(--text-lg); font-weight: 600; }
+
+    .service-content {}
+    .service-number {
+      font-family: var(--font-heading);
+      font-size: 5rem;
+      font-weight: 900;
+      color: rgba(200,151,42,0.15);
+      line-height: 1;
+      margin-bottom: -1.5rem;
+    }
+    .service-content h2 { margin-bottom: var(--space-2); }
+    .service-content .desc {
+      color: var(--text-muted);
+      font-size: var(--text-base);
+      line-height: 1.8;
+      margin-bottom: var(--space-3);
+    }
+    .feature-list { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: var(--space-4); }
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: var(--text-sm);
+      color: var(--text-dark);
+    }
+    .feature-item::before {
+      content: '✓';
+      width: 22px;
+      height: 22px;
+      background: rgba(200,151,42,0.15);
+      border-radius: var(--radius-full);
+      color: var(--accent-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Process Section */
+    .process-section {
+      background: var(--primary-dark);
+      padding: var(--space-7) 0;
+    }
+    .process-section .section-header .tag { color: var(--accent-light); }
+    .process-section .section-header h2 { color: #fff; }
+    .process-section .section-header p   { color: rgba(255,255,255,0.6); }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--space-2);
+      position: relative;
+      margin-top: var(--space-5);
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 36px;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent) 0%, rgba(200,151,42,0.2) 100%);
+      z-index: 0;
+    }
+    .process-step {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .step-num {
+      width: 72px;
+      height: 72px;
+      background: var(--primary);
+      border: 3px solid var(--accent);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: 700;
+      color: var(--accent);
+      margin: 0 auto var(--space-2);
+    }
+    .process-step h4 { color: #fff; font-size: var(--text-base); margin-bottom: 0.4rem; }
+    .process-step p  { color: rgba(255,255,255,0.55); font-size: var(--text-xs); line-height: 1.6; }
+
+    @media (max-width: 1024px) {
+      .process-steps { grid-template-columns: repeat(3, 1fr); }
+      .process-steps::before { display: none; }
+    }
+    @media (max-width: 768px) {
+      .service-layout, .service-layout.reverse { grid-template-columns: 1fr; direction: ltr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .process-steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar scrolled" id="navbar" aria-label="Main navigation">
+    <div class="container">
+      <a href="index.html" class="nav-logo" aria-label="Builtin Homes Home">
+        <div class="nav-logo-icon">B</div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">Builtin Homes</span>
+          <span class="nav-logo-tagline">Build. Design. Deliver.</span>
+        </div>
+      </a>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="index.html"    class="nav-link" id="nav-home">Home</a></li>
+        <li><a href="services.html" class="nav-link" id="nav-services">Services</a></li>
+        <li><a href="projects.html" class="nav-link" id="nav-projects">Projects</a></li>
+        <li><a href="about.html"    class="nav-link" id="nav-about">About Us</a></li>
+        <li><a href="contact.html"  class="nav-link nav-cta" id="nav-contact">Get a Quote</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle mobile menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <header class="page-hero" aria-label="Services page hero">
+    <div class="container page-hero-content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="sep">›</span>
+        <span class="current">Services</span>
+      </nav>
+      <span class="tag">What We Offer</span>
+      <h1>Our Services</h1>
+      <p>Comprehensive construction and design solutions tailored to your vision — from first meeting to final handover.</p>
+    </div>
+  </header>
+
+  <!-- SERVICE 1: Residential -->
+  <section class="service-section" id="residential" aria-label="Residential house construction">
+    <div class="container">
+      <div class="service-layout">
+        <div class="service-img-placeholder fade-in" style="background:linear-gradient(135deg,#1A2B4A,#2a4a7f);">
+          <div class="big-icon">🏠</div>
+          <p>Individual House Construction</p>
+        </div>
+        <div class="service-content fade-in fade-in-delay-1">
+          <div class="service-number">01</div>
+          <span class="tag" style="color:var(--accent);font-size:var(--text-sm);font-weight:600;letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:0.5rem;">Residential</span>
+          <h2>Individual House Construction</h2>
+          <div class="divider divider-left"></div>
+          <p class="desc">Your home is the most important investment of your life. At Builtin Homes, we handle every aspect of residential construction — from initial design and approvals to structural work, finishing, and handover. Our team of architects and engineers ensures your home is built to last.</p>
+          <ul class="feature-list">
+            <li class="feature-item">Custom architectural floor plan design</li>
+            <li class="feature-item">Structural engineering and load analysis</li>
+            <li class="feature-item">High-quality materials sourcing and supervision</li>
+            <li class="feature-item">Permit and approval assistance</li>
+            <li class="feature-item">Full project management from start to finish</li>
+            <li class="feature-item">Quality checks at every stage</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary">Get a Quote for Your Home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE 2: Commercial -->
+  <section class="service-section" id="commercial" aria-label="Commercial building construction">
+    <div class="container">
+      <div class="service-layout reverse">
+        <div class="service-img-placeholder fade-in" style="background:linear-gradient(135deg,#0e1c30,#1A2B4A);">
+          <div class="big-icon">🏢</div>
+          <p>Commercial Building Solutions</p>
+        </div>
+        <div class="service-content fade-in fade-in-delay-1">
+          <div class="service-number">02</div>
+          <span class="tag" style="color:var(--accent);font-size:var(--text-sm);font-weight:600;letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:0.5rem;">Commercial</span>
+          <h2>Commercial Building Solutions</h2>
+          <div class="divider divider-left"></div>
+          <p class="desc">We bring the same precision and quality to commercial construction. Office buildings, retail spaces, warehouses, and multi-storey commercial complexes — our team delivers structures that reflect your brand's professional image and meet all regulatory requirements.</p>
+          <ul class="feature-list">
+            <li class="feature-item">Commercial-grade structural engineering</li>
+            <li class="feature-item">Compliance with CMDA and local regulations</li>
+            <li class="feature-item">Office, retail, warehouse, and mixed-use buildings</li>
+            <li class="feature-item">Multi-storey construction expertise</li>
+            <li class="feature-item">Fire safety and electrical planning</li>
+            <li class="feature-item">On-time delivery with milestone tracking</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary">Discuss Your Project</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE 3: Interior Design -->
+  <section class="service-section" id="interior" aria-label="Interior design services">
+    <div class="container">
+      <div class="service-layout">
+        <div class="service-img-placeholder fade-in" style="background:linear-gradient(135deg,#C8972A,#8a5e1a);">
+          <div class="big-icon">🎨</div>
+          <p>Interior Design</p>
+        </div>
+        <div class="service-content fade-in fade-in-delay-1">
+          <div class="service-number">03</div>
+          <span class="tag" style="color:var(--accent);font-size:var(--text-sm);font-weight:600;letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:0.5rem;">Interior Design</span>
+          <h2>Interior Design & Finishing</h2>
+          <div class="divider divider-left"></div>
+          <p class="desc">Our in-house interior design team transforms spaces into beautiful, functional environments. Whether you prefer a modern minimalist aesthetic or a traditional Indian style, we craft interiors that are uniquely yours — with 3D visualization before a single nail is placed.</p>
+          <ul class="feature-list">
+            <li class="feature-item">3D interior visualization and walkthroughs</li>
+            <li class="feature-item">Space planning and furniture layout</li>
+            <li class="feature-item">Material, tile, and colour selection guidance</li>
+            <li class="feature-item">Custom modular kitchen and wardrobe design</li>
+            <li class="feature-item">Lighting design and false ceiling work</li>
+            <li class="feature-item">Modern and traditional design styles</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary">Start Your Interior Project</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE 4: Renovations -->
+  <section class="service-section" id="renovation" aria-label="Renovation and remodelling services">
+    <div class="container">
+      <div class="service-layout reverse">
+        <div class="service-img-placeholder fade-in" style="background:linear-gradient(135deg,#2d1a4a,#4a2a7f);">
+          <div class="big-icon">🔨</div>
+          <p>Renovations & Remodelling</p>
+        </div>
+        <div class="service-content fade-in fade-in-delay-1">
+          <div class="service-number">04</div>
+          <span class="tag" style="color:var(--accent);font-size:var(--text-sm);font-weight:600;letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:0.5rem;">Renovations</span>
+          <h2>Renovations & Remodelling</h2>
+          <div class="divider divider-left"></div>
+          <p class="desc">Give your existing property a fresh new life. Whether it's a full home renovation, a kitchen upgrade, or a bathroom overhaul, Builtin Homes handles every detail. We work around your schedule to minimize disruption while delivering exceptional results.</p>
+          <ul class="feature-list">
+            <li class="feature-item">Full home and partial area renovations</li>
+            <li class="feature-item">Kitchen and bathroom makeovers</li>
+            <li class="feature-item">Structural repairs and waterproofing</li>
+            <li class="feature-item">Floor and tile upgrades</li>
+            <li class="feature-item">Painting, plastering, and finishing</li>
+            <li class="feature-item">Minimal disruption to daily life</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary">Plan Your Renovation</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE 5: Turnkey -->
+  <section class="service-section" id="turnkey" aria-label="Turnkey project delivery">
+    <div class="container">
+      <div class="service-layout">
+        <div class="service-img-placeholder fade-in" style="background:linear-gradient(135deg,#0a2a1a,#1a5a3a);">
+          <div class="big-icon">🔑</div>
+          <p>Turnkey Projects</p>
+        </div>
+        <div class="service-content fade-in fade-in-delay-1">
+          <div class="service-number">05</div>
+          <span class="tag" style="color:var(--accent);font-size:var(--text-sm);font-weight:600;letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:0.5rem;">Turnkey</span>
+          <h2>Turnkey Project Delivery</h2>
+          <div class="divider divider-left"></div>
+          <p class="desc">The ultimate hassle-free construction experience. With our turnkey solution, you hand us one decision — your vision — and we handle everything else. Design, approvals, construction, interior, and handover: all managed under one roof, with one point of contact, and full transparency throughout.</p>
+          <ul class="feature-list">
+            <li class="feature-item">Single point of contact for entire project</li>
+            <li class="feature-item">Design to construction to interior to handover</li>
+            <li class="feature-item">Detailed project schedule with milestones</li>
+            <li class="feature-item">Full transparency — no hidden costs</li>
+            <li class="feature-item">Dedicated project manager assigned to you</li>
+            <li class="feature-item">Post-handover support and warranty</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary">Start a Turnkey Project</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS SECTION -->
+  <section class="process-section" id="process" aria-label="Our construction process">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="tag">How We Work</span>
+        <h2>Our 5-Step Process</h2>
+        <div class="divider"></div>
+        <p>A transparent, structured approach from first meeting to final handover.</p>
+      </div>
+      <div class="process-steps">
+        <div class="process-step fade-in">
+          <div class="step-num">1</div>
+          <h4>Consultation</h4>
+          <p>Initial meeting, site visit, and understanding your requirements and budget.</p>
+        </div>
+        <div class="process-step fade-in fade-in-delay-1">
+          <div class="step-num">2</div>
+          <h4>Planning & Design</h4>
+          <p>Architectural drawings, 3D visualization, and necessary approvals.</p>
+        </div>
+        <div class="process-step fade-in fade-in-delay-2">
+          <div class="step-num">3</div>
+          <h4>Construction</h4>
+          <p>Execution by our expert team with regular progress updates.</p>
+        </div>
+        <div class="process-step fade-in fade-in-delay-3">
+          <div class="step-num">4</div>
+          <h4>Quality Check</h4>
+          <p>Thorough inspection, finishing, snagging, and rectification.</p>
+        </div>
+        <div class="process-step fade-in fade-in-delay-4">
+          <div class="step-num">5</div>
+          <h4>Handover</h4>
+          <p>Final walkthrough, documentation, and formal handover to you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner" id="cta">
+    <div class="container">
+      <h2 class="fade-in">Ready to Get Started?</h2>
+      <p class="fade-in fade-in-delay-1">Tell us about your project and get a free, no-obligation consultation from our team.</p>
+      <div class="btn-group fade-in fade-in-delay-2">
+        <a href="contact.html" class="btn btn-primary btn-lg">Get a Free Quote</a>
+        <a href="projects.html" class="btn btn-outline btn-lg">See Our Work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="footer-logo-icon">B</div>
+            <span class="footer-logo-name">Builtin Homes</span>
+          </div>
+          <p>Professional construction, interior design, and turnkey project delivery in South Chennai.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/builtinhomes/" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">📸</a>
+            <a href="https://wa.me/?text=Hi, I'm interested in your construction services." class="social-link" aria-label="WhatsApp">💬</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="#residential">House Construction</a></li>
+            <li><a href="#commercial">Commercial Buildings</a></li>
+            <li><a href="#interior">Interior Design</a></li>
+            <li><a href="#renovation">Renovations</a></li>
+            <li><a href="#turnkey">Turnkey Projects</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Info</h4>
+          <div class="footer-contact-item">
+            <span class="icon">📍</span>
+            <span>No:2/271, Srinivasa St, Sathya Sai Nagar, Nanmangalam, Kovilambakkam, Chennai – 600129</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon">🕘</span>
+            <span>Mon – Sun: 9:00 AM – 12:00 AM</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Builtin Homes. All rights reserved.</p>
+        <p>No:2/271, Srinivasa St, Kovilambakkam, Chennai 600129</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="fab-group">
+    <a href="https://wa.me/?text=Hi%2C%20I'm%20interested%20in%20your%20construction%20services." class="fab fab-whatsapp" aria-label="Chat on WhatsApp" target="_blank" rel="noopener">💬</a>
+    <button class="fab fab-top" aria-label="Scroll to top">↑</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

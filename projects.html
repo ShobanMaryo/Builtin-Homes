@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Projects | Builtin Homes — Portfolio of Constructions in Chennai</title>
+  <meta name="description" content="Browse Builtin Homes' portfolio of completed residential, commercial, interior design, and renovation projects across Chennai, Tamil Nadu." />
+  <meta name="keywords" content="construction portfolio Chennai, completed projects Kovilambakkam, residential projects South Chennai, commercial projects Tamil Nadu" />
+  <meta property="og:title" content="Our Projects | Builtin Homes" />
+  <meta property="og:description" content="See our portfolio of completed construction and interior design projects across Chennai." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="projects.html" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Filter Tabs */
+    .filter-bar {
+      display: flex;
+      gap: var(--space-1);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: var(--space-5);
+    }
+    .filter-btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: var(--radius-full);
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      color: var(--text-muted);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .filter-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-3);
+    }
+
+    .project-card {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      background: var(--surface);
+    }
+    .project-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+
+    .project-thumb {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      display: block;
+    }
+    .project-card:hover .project-thumb { transform: scale(1.05); }
+
+    .project-thumb-placeholder {
+      width: 100%;
+      height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      transition: transform 0.5s ease;
+    }
+    .project-card:hover .project-thumb-placeholder { transform: scale(1.05); }
+
+    .project-info {
+      padding: var(--space-3);
+    }
+    .project-info .cat-badge {
+      display: inline-block;
+      padding: 0.2rem 0.7rem;
+      border-radius: var(--radius-full);
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+    .cat-residential { background: rgba(26,43,74,0.1); color: var(--primary); }
+    .cat-commercial   { background: rgba(200,151,42,0.15); color: var(--accent-dark); }
+    .cat-interior     { background: rgba(168,85,247,0.12); color: #7e22ce; }
+    .cat-renovation   { background: rgba(34,197,94,0.12); color: #15803d; }
+
+    .project-info h3 { font-size: var(--text-lg); margin-bottom: 0.3rem; }
+    .project-info .location { color: var(--text-muted); font-size: var(--text-sm); margin-bottom: var(--space-2); }
+
+    .project-meta {
+      display: flex;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: var(--space-1);
+      margin-top: var(--space-1);
+    }
+    .project-meta span { display: flex; align-items: center; gap: 0.3rem; }
+
+    .project-view-btn {
+      display: none;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-3);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal-box {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      max-width: 800px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+    .modal-overlay.open .modal-box { transform: scale(1); }
+
+    .modal-img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      display: block;
+    }
+    .modal-img-placeholder {
+      width: 100%;
+      height: 320px;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+    }
+
+    .modal-body { padding: var(--space-4); }
+    .modal-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--space-2); }
+    .modal-close-btn {
+      width: 36px; height: 36px;
+      border-radius: var(--radius-full);
+      background: var(--bg-section);
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+    .modal-close-btn:hover { background: var(--primary); color: #fff; }
+
+    .modal-details-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-2);
+      margin: var(--space-3) 0;
+      padding: var(--space-3);
+      background: var(--bg-section);
+      border-radius: var(--radius);
+    }
+    .modal-detail { text-align: center; }
+    .modal-detail .label { font-size: var(--text-xs); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .modal-detail .value { font-size: var(--text-base); font-weight: 600; color: var(--primary); }
+
+    @media (max-width: 1024px) {
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .modal-details-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar scrolled" id="navbar" aria-label="Main navigation">
+    <div class="container">
+      <a href="index.html" class="nav-logo" aria-label="Builtin Homes Home">
+        <div class="nav-logo-icon">B</div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">Builtin Homes</span>
+          <span class="nav-logo-tagline">Build. Design. Deliver.</span>
+        </div>
+      </a>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="index.html"    class="nav-link" id="nav-home">Home</a></li>
+        <li><a href="services.html" class="nav-link" id="nav-services">Services</a></li>
+        <li><a href="projects.html" class="nav-link" id="nav-projects">Projects</a></li>
+        <li><a href="about.html"    class="nav-link" id="nav-about">About Us</a></li>
+        <li><a href="contact.html"  class="nav-link nav-cta" id="nav-contact">Get a Quote</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle mobile menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <header class="page-hero" aria-label="Projects page hero">
+    <div class="container page-hero-content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="sep">›</span>
+        <span class="current">Projects</span>
+      </nav>
+      <span class="tag">Our Portfolio</span>
+      <h1>Our Projects</h1>
+      <p>A showcase of quality craftsmanship and design excellence across Chennai — from dream homes to commercial landmarks.</p>
+    </div>
+  </header>
+
+  <!-- PROJECTS SECTION -->
+  <section class="section" id="projects-list" style="background:var(--bg-light);" aria-label="All projects">
+    <div class="container">
+
+      <!-- Filter Tabs -->
+      <div class="filter-bar fade-in" role="tablist" aria-label="Filter projects by category">
+        <button class="filter-btn active" data-filter="all"         aria-label="Show all projects">All Projects</button>
+        <button class="filter-btn"        data-filter="residential" aria-label="Show residential projects">Residential</button>
+        <button class="filter-btn"        data-filter="commercial"  aria-label="Show commercial projects">Commercial</button>
+        <button class="filter-btn"        data-filter="interior"    aria-label="Show interior design projects">Interior Design</button>
+        <button class="filter-btn"        data-filter="renovation"  aria-label="Show renovation projects">Renovations</button>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="projects-grid">
+
+        <!-- Project 1 -->
+        <article class="project-card fade-in"
+          data-category="residential"
+          data-title="Modern Family Villa"
+          data-desc="A 2,800 sq.ft modern villa designed for a young family in Kovilambakkam. Features an open-plan living area, 4 bedrooms, a home office, and landscaped garden. Completed in 18 months with all premium fittings."
+          data-area="2,800 sq.ft"
+          data-year="2024"
+          data-location="Kovilambakkam, Chennai"
+          data-img="">
+          <div class="project-thumb-placeholder" style="background:linear-gradient(135deg,#1A2B4A,#2a4a7f);">🏠</div>
+          <div class="project-info">
+            <span class="cat-badge cat-residential">Residential</span>
+            <h3>Modern Family Villa</h3>
+            <p class="location">📍 Kovilambakkam, Chennai</p>
+            <div class="project-meta">
+              <span>📐 2,800 sq.ft</span>
+              <span>📅 2024</span>
+              <span>🔑 Turnkey</span>
+            </div>
+          </div>
+          <button class="project-view-btn" aria-label="View project details">View Details</button>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project-card fade-in fade-in-delay-1"
+          data-category="commercial"
+          data-title="Technology Office Complex"
+          data-desc="A 5,500 sq.ft commercial office complex built for a technology firm in Nanmangalam. Includes open-plan office floors, conference rooms, a cafeteria, and rooftop terrace. CMDA-compliant construction delivered in 14 months."
+          data-area="5,500 sq.ft"
+          data-year="2024"
+          data-location="Nanmangalam, Chennai"
+          data-img="">
+          <div class="project-thumb-placeholder" style="background:linear-gradient(135deg,#0a1628,#1A2B4A);">🏢</div>
+          <div class="project-info">
+            <span class="cat-badge cat-commercial">Commercial</span>
+            <h3>Technology Office Complex</h3>
+            <p class="location">📍 Nanmangalam, Chennai</p>
+            <div class="project-meta">
+              <span>📐 5,500 sq.ft</span>
+              <span>📅 2024</span>
+              <span>🏗️ Commercial</span>
+            </div>
+          </div>
+          <button class="project-view-btn" aria-label="View project details">View Details</button>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-card fade-in fade-in-delay-2"
+          data-category="interior"
+          data-title="Luxury Apartment Interior"
+          data-desc="Complete interior design and fitting for a 1,600 sq.ft luxury apartment in Pallikaranai. Featured Italian marble flooring, velvet upholstery, custom modular kitchen, and smart lighting system. Completed in 4 months."
+          data-area="1,600 sq.ft"
+          data-year="2025"
+          data-location="Pallikaranai, Chennai"
+          data-img="">
+          <div class="project-thumb-placeholder" style="background:linear-gradient(135deg,#C8972A,#8a5e1a);">🎨</div>
+          <div class="project-info">
+            <span class="cat-badge cat-interior">Interior Design</span>
+            <h3>Luxury Apartment Interior</h3>
+            <p class="location">📍 Pallikaranai, Chennai</p>
+            <div class="project-meta">
+              <span>📐 1,600 sq.ft</span>
+              <span>📅 2025</span>
+              <span>🎨 Interior</span>
+            </div>
+          </div>
+          <button class="project-view-btn" aria-label="View project details">View Details</button>
+        </article>
+
+        <!-- Project 4 -->
+        <article class="project-card fade-in"
+          data-category="residential"
+          data-title="Traditional South Indian Home"
+          data-desc="A beautifully crafted 3,200 sq.ft traditional South Indian home in Medavakkam. Features a central courtyard, Athangudi tile flooring, teak wood doors and windows, and a modern integrated kitchen."
+          data-area="3,200 sq.ft"
+          data-year="2023"
+          data-location="Medavakkam, Chennai"
+          data-img="">
+          <div class="project-thumb-placeholder" style="background:linear-gradient(135deg,#2a1a0a,#5a3a10);">🏡</div>
+          <div class="project-info">
+            <span class="cat-badge cat-residential">Residential</span>
+            <h3>Traditional South Indian Home</h3>
+            <p class="location">📍 Medavakkam, Chennai</p>
+            <div class="project-meta">
+              <span>📐 3,200 sq.ft</span>
+              <span>📅 2023</span>
+              <span>🏠 Residential</span>
+            </div>
+          </div>
+          <button class="project-view-btn" aria-label="View project details">View Details</button>
+        </article>
+
+        <!-- Project 5 -->
+        <article class="project-card fade-in fade-in-delay-1"
+          data-category="renovation"
+          data-title="Complete Home Renovation"
+          data-desc="Full renovation of a 20-year-old 2,000 sq.ft home in Velachery. Structural repairs, full replastering, new flooring throughout, kitchen overhaul, bathroom renovation across 3 units, and fresh exterior painting."
+          data-area="2,000 sq.ft"
+          data-year="2025"
+          data-location="Velachery, Chennai"
+          data-img="">
+          <div class="project-thumb-placeholder" style="background:linear-gradient(135deg,#1a2a1a,#1a5a1a);">🔨</div>
+          <div class="project-info">
+            <span class="cat-badge cat-renovation">Renovation</span>
+            <h3>Complete Home Renovation</h3>
+            <p class="location">📍 Velachery, Chennai</p>
+            <div class="project-meta">
+              <span>📐 2,000 sq.ft</span>
+              <span>📅 2025</span>
+              <span>🔨 Renovation</span>
+            </div>
+          </div>
+          <button class="project-view-btn" aria-label="View project details">View Details</button>
+        </article>
+
+        <!-- Project 6 -->
+        <article class="project-card fade-in fade-in-delay-2"
+          data-category="commercial"
+          data-title="Retail Showroom Build"
+          data-desc="Construction and interior fit-out of a 3,800 sq.ft retail showroom in Tambaram. High-ceiling open display floor, professional lighting grid, back office, storage area, and customer lounge. Delivered in 10 months."
+          data-area="3,800 sq.ft"
+          data-year="2023"
+          data-location="Tambaram, Chennai"
+          data-img="">
+          <div class="project-thumb-placeholder" style="background:linear-gradient(135deg,#1a0a2a,#4a1a7f);">🏬</div>
+          <div class="project-info">
+            <span class="cat-badge cat-commercial">Commercial</span>
+            <h3>Retail Showroom Build</h3>
+            <p class="location">📍 Tambaram, Chennai</p>
+            <div class="project-meta">
+              <span>📐 3,800 sq.ft</span>
+              <span>📅 2023</span>
+              <span>🏗️ Commercial</span>
+            </div>
+          </div>
+          <button class="project-view-btn" aria-label="View project details">View Details</button>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner" id="cta">
+    <div class="container">
+      <h2 class="fade-in">Have a Project in Mind?</h2>
+      <p class="fade-in fade-in-delay-1">Let's build it together. Get in touch for a free consultation and quote.</p>
+      <div class="btn-group fade-in fade-in-delay-2">
+        <a href="contact.html" class="btn btn-primary btn-lg">Start a Project</a>
+        <a href="services.html" class="btn btn-outline btn-lg">Our Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECT MODAL -->
+  <div class="modal-overlay" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box">
+      <div class="modal-img-placeholder" id="modal-placeholder" style="background:linear-gradient(135deg,#1A2B4A,#2a4a7f);">🏗️</div>
+      <div class="modal-body">
+        <div class="modal-header">
+          <div>
+            <span id="modal-category" class="cat-badge cat-residential" style="margin-bottom:0.5rem;display:inline-block;"></span>
+            <h2 id="modal-title" style="font-size:var(--text-xl);"></h2>
+          </div>
+          <button class="modal-close-btn" id="modal-close" aria-label="Close modal">✕</button>
+        </div>
+        <p id="modal-description" style="color:var(--text-muted);line-height:1.8;"></p>
+        <div class="modal-details-grid">
+          <div class="modal-detail">
+            <div class="label">Area</div>
+            <div class="value" id="modal-area">—</div>
+          </div>
+          <div class="modal-detail">
+            <div class="label">Year</div>
+            <div class="value" id="modal-year">—</div>
+          </div>
+          <div class="modal-detail">
+            <div class="label">Location</div>
+            <div class="value" id="modal-location">—</div>
+          </div>
+        </div>
+        <a href="contact.html" class="btn btn-primary" style="width:100%;justify-content:center;">Want a Similar Project? Contact Us</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="footer-logo-icon">B</div>
+            <span class="footer-logo-name">Builtin Homes</span>
+          </div>
+          <p>Professional construction, interior design, and turnkey project delivery in South Chennai.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/builtinhomes/" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">📸</a>
+            <a href="https://wa.me/?text=Hi, I'm interested in your construction services." class="social-link" aria-label="WhatsApp">💬</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="services.html#residential">House Construction</a></li>
+            <li><a href="services.html#commercial">Commercial Buildings</a></li>
+            <li><a href="services.html#interior">Interior Design</a></li>
+            <li><a href="services.html#renovation">Renovations</a></li>
+            <li><a href="services.html#turnkey">Turnkey Projects</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Info</h4>
+          <div class="footer-contact-item">
+            <span class="icon">📍</span>
+            <span>No:2/271, Srinivasa St, Sathya Sai Nagar, Nanmangalam, Kovilambakkam, Chennai – 600129</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon">🕘</span>
+            <span>Mon – Sun: 9:00 AM – 12:00 AM</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Builtin Homes. All rights reserved.</p>
+        <p>No:2/271, Srinivasa St, Kovilambakkam, Chennai 600129</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="fab-group">
+    <a href="https://wa.me/?text=Hi%2C%20I'm%20interested%20in%20your%20construction%20services." class="fab fab-whatsapp" aria-label="Chat on WhatsApp" target="_blank" rel="noopener">💬</a>
+    <button class="fab fab-top" aria-label="Scroll to top">↑</button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Make project cards clickable (open modal)
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => {
+        card.querySelector('.project-view-btn').click();
+      });
+    });
+  </script>
+</body>
+</html>
