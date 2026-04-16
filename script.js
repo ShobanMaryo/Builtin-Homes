@@ -5,15 +5,28 @@
 // ── Navbar: scroll behaviour ──────────────────────────────
 const navbar = document.querySelector('.navbar');
 const navToggle = document.querySelector('.nav-toggle');
-const navLinks  = document.querySelector('.nav-links');
-const fabTop    = document.querySelector('.fab-top');
+const navLinks = document.querySelector('.nav-links');
+const fabTop = document.querySelector('.fab-top');
+
+const isHomePage =
+  location.pathname.endsWith("index.html") ||
+  location.pathname === "/" ||
+  location.pathname === "";
 
 window.addEventListener('scroll', () => {
+  if (!navbar) return;
+
+  if (!isHomePage) {
+    navbar.classList.add('scrolled');
+    fabTop?.classList.add('show');
+    return;
+  }
+
   if (window.scrollY > 60) {
-    navbar?.classList.add('scrolled');
+    navbar.classList.add('scrolled');
     fabTop?.classList.add('show');
   } else {
-    navbar?.classList.remove('scrolled');
+    navbar.classList.remove('scrolled');
     fabTop?.classList.remove('show');
   }
 });
@@ -124,11 +137,11 @@ document.querySelectorAll('.project-view-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     if (!modal) return;
     const card = btn.closest('.project-card');
-    document.getElementById('modal-title').textContent   = card.dataset.title || '';
+    document.getElementById('modal-title').textContent = card.dataset.title || '';
     document.getElementById('modal-category').textContent = card.dataset.category || '';
     document.getElementById('modal-description').textContent = card.dataset.desc || '';
-    document.getElementById('modal-area').textContent   = card.dataset.area || '—';
-    document.getElementById('modal-year').textContent   = card.dataset.year || '—';
+    document.getElementById('modal-area').textContent = card.dataset.area || '—';
+    document.getElementById('modal-year').textContent = card.dataset.year || '—';
     document.getElementById('modal-location').textContent = card.dataset.location || '—';
     const imgEl = document.getElementById('modal-img');
     if (imgEl) imgEl.src = card.dataset.img || '';
@@ -167,7 +180,7 @@ contactForm?.addEventListener('submit', (e) => {
 // ── Testimonial auto-scroll (home page) ───────────────────
 let testimonialIndex = 0;
 const testimonialTrack = document.querySelector('.testimonial-track');
-const testimonialDots  = document.querySelectorAll('.testimonial-dot');
+const testimonialDots = document.querySelectorAll('.testimonial-dot');
 const totalTestimonials = testimonialDots.length;
 
 function goToTestimonial(index) {
